@@ -1,0 +1,89 @@
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0f172a;
+    color: white;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #020617;
+}
+
+.logo {
+    color: #38bdf8;
+}
+
+.nav-links a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #38bdf8;
+}
+
+/* HERO / PAGE HEADER */
+.page-hero {
+    text-align: center;
+    padding: 60px;
+    background: linear-gradient(to right, #020617, #0f172a);
+}
+
+/* GENERAL SECTIONS */
+section {
+    padding: 40px;
+    text-align: center;
+}
+
+/* CARDS */
+.card {
+    background: #020617;
+    margin: 15px;
+    padding: 25px;
+    width: 250px;
+    border-radius: 10px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    background: #1e293b;
+}
+
+/* FLEX CONTAINER */
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* FORM */
+form input, form textarea {
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+form button {
+    padding: 10px 20px;
+    background: #38bdf8;
+    border: none;
+    cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+}
