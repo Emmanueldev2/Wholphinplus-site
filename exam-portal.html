@@ -7,368 +7,173 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --navy: #0B1F3A;
-    --navy-mid: #132C50;
-    --navy-light: #1E3E6E;
-    --accent: #0EA5E9;
-    --accent-dark: #0284C7;
-    --accent-soft: #E0F2FE;
-    --success: #16A34A;
-    --success-soft: #DCFCE7;
-    --danger: #DC2626;
-    --danger-soft: #FEE2E2;
-    --warning: #D97706;
-    --warning-soft: #FEF3C7;
-    --text: #0F172A;
-    --text-mid: #475569;
-    --text-light: #94A3B8;
-    --border: #E2E8F0;
-    --surface: #F8FAFC;
-    --white: #FFFFFF;
-    --font-head: 'Sora', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --radius: 10px;
-    --radius-lg: 16px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --navy: #020617; --navy-mid: #0f172a; --navy-light: #1e293b;
+    --accent: #38bdf8; --accent-dark: #0ea5e9; --accent-soft: rgba(56,189,248,0.12);
+    --success: #22c55e; --success-soft: rgba(34,197,94,0.12);
+    --danger: #ef4444; --danger-soft: rgba(239,68,68,0.12);
+    --warning: #f59e0b; --warning-soft: rgba(245,158,11,0.12);
+    --purple: #a78bfa; --purple-soft: rgba(167,139,250,0.12);
+    --text: #f1f5f9; --text-mid: #94a3b8; --text-light: #475569;
+    --border: rgba(255,255,255,0.08); --surface: #0f172a; --white: #1e293b;
+    --font-head: 'Sora', sans-serif; --font-body: 'DM Sans', sans-serif;
+    --radius: 10px; --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
   }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--surface);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* ── TOPBAR ── */
-  .topbar {
-    background: var(--navy);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .topbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: -0.3px;
-  }
-  .topbar-logo {
-    width: 32px; height: 32px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 700; color: white;
-  }
-  .topbar-nav { display: flex; gap: 6px; }
-  .nav-btn {
-    background: transparent;
-    border: none;
-    color: rgba(255,255,255,0.7);
-    font-family: var(--font-body);
-    font-size: 13px;
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
+  body { font-family: var(--font-body); background: var(--surface); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+  .topbar { background: var(--navy); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 60px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .topbar-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 700; font-size: 16px; }
+  .topbar-logo { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #020617; }
+  .topbar-nav { display: flex; gap: 6px; align-items: center; }
+  .nav-btn { background: transparent; border: none; color: rgba(255,255,255,0.7); font-family: var(--font-body); font-size: 13px; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
   .nav-btn:hover { background: rgba(255,255,255,0.1); color: white; }
-  .nav-btn.active { background: var(--accent); color: white; }
-  .nav-btn.danger { color: #FCA5A5; }
-  .nav-btn.danger:hover { background: rgba(220,38,38,0.2); color: #FCA5A5; }
-
-  /* ── PAGES ── */
+  .nav-btn.danger { color: #fca5a5; }
+  .nav-btn.danger:hover { background: rgba(239,68,68,0.2); }
   .page { display: none; }
   .page.active { display: block; }
-
-  /* ── AUTH PAGE ── */
-  .auth-wrap {
-    min-height: calc(100vh - 60px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #0B1F3A 0%, #1E3E6E 50%, #0B1F3A 100%);
-  }
-  .auth-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: var(--shadow-lg);
-  }
+  .auth-wrap { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 2rem; background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%); }
+  .auth-card { background: #0f172a; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: var(--shadow-lg); }
   .auth-header { text-align: center; margin-bottom: 2rem; }
-  .auth-logo {
-    width: 56px; height: 56px;
-    background: var(--navy);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; font-weight: 700; color: var(--accent);
-    font-family: var(--font-head);
-    margin: 0 auto 1rem;
-  }
-  .auth-header h1 { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); }
+  .auth-logo { width: 56px; height: 56px; background: var(--navy); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--accent); font-family: var(--font-head); margin: 0 auto 1rem; }
+  .auth-header h1 { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--accent); }
   .auth-header p { color: var(--text-mid); font-size: 13px; margin-top: 4px; }
-
-  .auth-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-  .auth-tab {
-    flex: 1; padding: 9px; text-align: center; font-size: 13px; font-weight: 500;
-    cursor: pointer; border: none; background: var(--surface); color: var(--text-mid);
-    transition: all 0.15s; font-family: var(--font-body);
-  }
-  .auth-tab.active { background: var(--navy); color: white; }
-
+  .auth-tabs { display: flex; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
+  .auth-tab { flex: 1; padding: 9px; text-align: center; font-size: 13px; font-weight: 500; cursor: pointer; border: none; background: var(--surface); color: var(--text-mid); transition: all 0.15s; font-family: var(--font-body); }
+  .auth-tab.active { background: var(--navy); color: var(--accent); }
   .form-group { margin-bottom: 1rem; }
   .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-  .form-group input, .form-group select {
-    width: 100%; padding: 10px 14px; border: 1px solid var(--border);
-    border-radius: var(--radius); font-size: 14px; font-family: var(--font-body);
-    color: var(--text); background: var(--white); outline: none; transition: border 0.15s;
-  }
+  .form-group input, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); font-size: 14px; font-family: var(--font-body); color: var(--text); background: #020617; outline: none; transition: border 0.15s; }
   .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
-
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 11px 20px; border-radius: var(--radius); border: none;
-    font-family: var(--font-body); font-size: 14px; font-weight: 500;
-    cursor: pointer; transition: all 0.15s; text-decoration: none;
-  }
-  .btn-primary { background: var(--accent); color: white; width: 100%; }
+  .form-group select option { background: #0f172a; }
+  .pw-wrap { position: relative; }
+  .pw-wrap input { padding-right: 52px; }
+  .pw-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-mid); cursor: pointer; font-size: 12px; font-family: var(--font-body); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; border-radius: var(--radius); border: none; font-family: var(--font-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #020617; width: 100%; }
   .btn-primary:hover { background: var(--accent-dark); }
-  .btn-outline {
-    background: transparent; border: 1px solid var(--border); color: var(--text-mid);
-  }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-mid); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-danger { background: var(--danger); color: white; }
   .btn-success { background: var(--success); color: white; }
-  .btn-sm { padding: 7px 14px; font-size: 13px; }
-  .btn-icon {
-    padding: 7px; border-radius: 8px;
-    background: var(--surface); border: 1px solid var(--border); cursor: pointer;
-    color: var(--text-mid); font-size: 15px; transition: all 0.15s;
-  }
-  .btn-icon:hover { border-color: var(--accent); color: var(--accent); }
-
+  .btn-sm { padding: 7px 14px; font-size: 13px; width: auto; }
   .alert { padding: 10px 14px; border-radius: var(--radius); font-size: 13px; margin-bottom: 1rem; }
-  .alert-danger { background: var(--danger-soft); color: var(--danger); border: 1px solid #FCA5A5; }
-  .alert-success { background: var(--success-soft); color: var(--success); border: 1px solid #86EFAC; }
-  .alert-warning { background: var(--warning-soft); color: var(--warning); border: 1px solid #FCD34D; }
-
-  /* ── DASHBOARD LAYOUT ── */
+  .alert-danger { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); }
+  .alert-success { background: var(--success-soft); color: var(--success); border: 1px solid rgba(34,197,94,0.3); }
+  .alert-warning { background: var(--warning-soft); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
   .dashboard { display: flex; min-height: calc(100vh - 60px); }
-  .sidebar {
-    width: 230px; background: var(--white); border-right: 1px solid var(--border);
-    padding: 1.5rem 1rem; flex-shrink: 0;
-    display: flex; flex-direction: column; gap: 4px;
-  }
+  .sidebar { width: 230px; background: var(--white); border-right: 1px solid var(--border); padding: 1.5rem 1rem; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; }
   .sidebar-label { font-size: 11px; font-weight: 600; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 10px 4px; }
-  .sidebar-item {
-    display: flex; align-items: center; gap: 10px; padding: 9px 12px;
-    border-radius: var(--radius); cursor: pointer; color: var(--text-mid);
-    font-size: 14px; transition: all 0.15s; border: none; background: none; width: 100%; text-align: left;
-    font-family: var(--font-body);
-  }
+  .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius); cursor: pointer; color: var(--text-mid); font-size: 14px; transition: all 0.15s; border: none; background: none; width: 100%; text-align: left; font-family: var(--font-body); }
   .sidebar-item:hover { background: var(--surface); color: var(--text); }
-  .sidebar-item.active { background: var(--accent-soft); color: var(--accent-dark); font-weight: 500; }
+  .sidebar-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
   .sidebar-icon { font-size: 16px; width: 20px; text-align: center; }
-
   .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
-  .page-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+  .page-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
   .page-sub { color: var(--text-mid); font-size: 14px; margin-bottom: 1.5rem; }
-
-  /* ── STAT CARDS ── */
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 2rem; }
-  .stat-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem; transition: box-shadow 0.15s;
-  }
-  .stat-card:hover { box-shadow: var(--shadow); }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 2rem; }
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
   .stat-label { font-size: 12px; color: var(--text-mid); font-weight: 500; margin-bottom: 6px; }
-  .stat-value { font-size: 28px; font-weight: 700; font-family: var(--font-head); color: var(--navy); }
-  .stat-badge {
-    display: inline-block; font-size: 11px; padding: 2px 8px;
-    border-radius: 20px; margin-top: 6px; font-weight: 500;
-  }
-  .badge-blue { background: var(--accent-soft); color: var(--accent-dark); }
+  .stat-value { font-size: 28px; font-weight: 700; font-family: var(--font-head); color: var(--text); }
+  .stat-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-top: 6px; font-weight: 500; }
+  .badge-blue { background: var(--accent-soft); color: var(--accent); }
   .badge-green { background: var(--success-soft); color: var(--success); }
   .badge-red { background: var(--danger-soft); color: var(--danger); }
-
-  /* ── TABLE ── */
+  .badge-purple { background: var(--purple-soft); color: var(--purple); }
   .table-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-  .table-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .table-title { font-weight: 600; font-size: 15px; color: var(--navy); }
-  .search-input {
-    padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius);
-    font-size: 13px; font-family: var(--font-body); outline: none; width: 200px;
-  }
+  .table-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .table-title { font-weight: 600; font-size: 15px; color: var(--text); }
+  .search-input { padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 13px; font-family: var(--font-body); outline: none; width: 200px; background: #020617; color: var(--text); }
   .search-input:focus { border-color: var(--accent); }
   table { width: 100%; border-collapse: collapse; }
-  th { font-size: 12px; font-weight: 600; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 16px; text-align: left; background: var(--surface); border-bottom: 1px solid var(--border); }
+  th { font-size: 12px; font-weight: 600; color: var(--text-mid); text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 16px; text-align: left; background: #020617; border-bottom: 1px solid var(--border); }
   td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--surface); }
-
-  .status-pill {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;
-  }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .status-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
   .pill-active { background: var(--success-soft); color: var(--success); }
   .pill-draft { background: var(--warning-soft); color: var(--warning); }
   .pill-expired { background: var(--danger-soft); color: var(--danger); }
-  .pill-pending { background: #E0E7FF; color: #4338CA; }
-
-  /* ── MODAL ── */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200;
-    display: flex; align-items: center; justify-content: center; padding: 1rem;
-  }
+  .pill-inactive { background: rgba(255,255,255,0.05); color: var(--text-mid); border: 1px solid var(--border); }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .av-blue { background: var(--accent-soft); color: var(--accent); }
+  .av-purple { background: var(--purple-soft); color: var(--purple); }
+  .flex-row { display: flex; align-items: center; gap: 10px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1rem; }
   .modal-overlay.hidden { display: none; }
-  .modal {
-    background: var(--white); border-radius: var(--radius-lg); padding: 2rem;
-    width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
-    box-shadow: var(--shadow-lg);
-  }
-  .modal-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
+  .modal { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); }
+  .modal-sm { max-width: 440px; }
+  .modal-title { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 1.5rem; }
   .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
-
-  /* ── QUESTION BUILDER ── */
-  .question-block {
-    border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
-  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .tab-row { display: flex; gap: 4px; background: var(--navy); border-radius: var(--radius); padding: 4px; margin-bottom: 1.5rem; width: fit-content; }
+  .tab-btn { padding: 7px 18px; border-radius: 7px; border: none; background: transparent; color: var(--text-mid); font-size: 13px; font-weight: 500; cursor: pointer; font-family: var(--font-body); transition: all 0.15s; }
+  .tab-btn.active { background: var(--accent); color: #020617; }
+  .question-block { border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem; background: rgba(255,255,255,0.02); }
   .question-block-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .options-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
   .option-row { display: flex; align-items: center; gap: 8px; }
-  .option-row input[type="text"] { flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; font-family: var(--font-body); outline: none; }
+  .option-row input[type="text"] { flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; font-family: var(--font-body); outline: none; background: #020617; color: var(--text); }
   .option-row input[type="text"]:focus { border-color: var(--accent); }
   .option-row input[type="radio"] { accent-color: var(--accent); width: 15px; height: 15px; }
-  .option-label { font-size: 13px; color: var(--text-mid); }
-
-  /* ── EXAM INTERFACE ── */
   .exam-wrap { min-height: calc(100vh - 60px); display: flex; flex-direction: column; }
-  .exam-header {
-    background: var(--white); border-bottom: 1px solid var(--border);
-    padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
-  }
-  .exam-title-info h2 { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--navy); }
+  .exam-header { background: var(--white); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .exam-title-info h2 { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--accent); }
   .exam-title-info p { font-size: 13px; color: var(--text-mid); }
-  .exam-timer {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--navy); color: white; padding: 10px 18px; border-radius: var(--radius);
-    font-family: var(--font-head); font-size: 20px; font-weight: 700;
-  }
-  .timer-label { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.7); }
-  .exam-timer.warn { background: var(--warning); }
-  .exam-timer.danger { background: var(--danger); }
-
-  .exam-body { display: flex; flex: 1; gap: 0; }
-  .question-nav {
-    width: 200px; background: var(--white); border-right: 1px solid var(--border);
-    padding: 1rem; overflow-y: auto;
-  }
+  .exam-timer { display: flex; align-items: center; gap: 8px; background: var(--navy); color: white; padding: 10px 18px; border-radius: var(--radius); font-family: var(--font-head); font-size: 20px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); }
+  .timer-label { font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.6); }
+  .exam-timer.warn { background: var(--warning); border-color: transparent; }
+  .exam-timer.danger { background: var(--danger); border-color: transparent; }
+  .exam-body { display: flex; flex: 1; }
+  .question-nav { width: 200px; background: var(--white); border-right: 1px solid var(--border); padding: 1rem; overflow-y: auto; }
   .q-nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-  .q-nav-btn {
-    aspect-ratio: 1; border: 1.5px solid var(--border); border-radius: 7px;
-    background: var(--white); font-size: 12px; font-weight: 500; color: var(--text-mid);
-    cursor: pointer; transition: all 0.12s;
-  }
+  .q-nav-btn { aspect-ratio: 1; border: 1.5px solid var(--border); border-radius: 7px; background: var(--white); font-size: 12px; font-weight: 500; color: var(--text-mid); cursor: pointer; transition: all 0.12s; }
   .q-nav-btn.answered { background: var(--success); border-color: var(--success); color: white; }
   .q-nav-btn.current { border-color: var(--accent); color: var(--accent); }
-
   .question-main { flex: 1; padding: 2rem; overflow-y: auto; }
-  .question-card {
-    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 2rem; max-width: 700px;
-  }
+  .question-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; max-width: 700px; }
   .q-number { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-  .q-text { font-size: 17px; font-weight: 500; color: var(--navy); margin-bottom: 1.5rem; line-height: 1.5; }
-  .mcq-option {
-    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-    border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer;
-    transition: all 0.12s; margin-bottom: 10px; font-size: 14px; color: var(--text);
-  }
+  .q-text { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 1.5rem; line-height: 1.5; }
+  .mcq-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all 0.12s; margin-bottom: 10px; font-size: 14px; color: var(--text); }
   .mcq-option:hover { border-color: var(--accent); background: var(--accent-soft); }
-  .mcq-option.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-dark); }
+  .mcq-option.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
   .mcq-option input { accent-color: var(--accent); width: 16px; height: 16px; }
-  .option-letter {
-    width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid currentColor;
-    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0;
-  }
+  .option-letter { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
   .q-nav-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
-
-  /* ── RESULT ── */
   .result-wrap { min-height: calc(100vh - 60px); display: flex; align-items: center; justify-content: center; padding: 2rem; }
   .result-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; max-width: 520px; width: 100%; text-align: center; box-shadow: var(--shadow-lg); }
   .score-ring { width: 120px; height: 120px; margin: 0 auto 1.5rem; position: relative; }
   .score-ring svg { transform: rotate(-90deg); }
   .score-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .score-pct { font-family: var(--font-head); font-size: 26px; font-weight: 700; color: var(--navy); }
+  .score-pct { font-family: var(--font-head); font-size: 26px; font-weight: 700; color: var(--text); }
   .score-sub { font-size: 12px; color: var(--text-mid); }
-  .result-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .result-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
   .result-meta { font-size: 14px; color: var(--text-mid); margin-bottom: 1.5rem; }
   .result-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 1.5rem; }
   .result-stat { background: var(--surface); border-radius: var(--radius); padding: 1rem; }
   .rs-label { font-size: 12px; color: var(--text-mid); margin-bottom: 4px; }
   .rs-value { font-size: 20px; font-weight: 700; font-family: var(--font-head); }
-  .rs-value.green { color: var(--success); }
-  .rs-value.red { color: var(--danger); }
-  .rs-value.blue { color: var(--accent-dark); }
-
-  /* ── STUDENT EXAM LIST ── */
   .exam-list { max-width: 700px; }
-  .exam-list-item {
-    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem 1.5rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;
-    transition: box-shadow 0.15s;
-  }
-  .exam-list-item:hover { box-shadow: var(--shadow); }
-  .eli-info h3 { font-weight: 600; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+  .exam-list-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+  .eli-info h3 { font-weight: 600; font-size: 15px; color: var(--text); margin-bottom: 4px; }
   .eli-info p { font-size: 13px; color: var(--text-mid); }
-
-  /* ── UTILITIES ── */
-  .flex { display: flex; }
-  .items-center { align-items: center; }
-  .gap-2 { gap: 8px; }
-  .gap-3 { gap: 12px; }
-  .mb-1 { margin-bottom: 4px; }
-  .mb-2 { margin-bottom: 8px; }
-  .mb-4 { margin-bottom: 16px; }
-  .text-sm { font-size: 13px; }
-  .text-mid { color: var(--text-mid); }
-  .fw-500 { font-weight: 500; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
-  .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 500; }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-brand">
     <div class="topbar-logo">WD</div>
     Wholphinplus Developers Institute
   </div>
   <div class="topbar-nav" id="topNav">
-    <button class="nav-btn" onclick="goTo('loginPage')" id="nb-login">Login</button>
+    <button class="nav-btn">Login</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ LOGIN PAGE -->
+<!-- LOGIN -->
 <div id="loginPage" class="page active">
   <div class="auth-wrap">
     <div class="auth-card">
@@ -379,95 +184,50 @@
       </div>
       <div class="auth-tabs">
         <button class="auth-tab active" onclick="switchAuthTab('student')">Student</button>
-        <button class="auth-tab" onclick="switchAuthTab('admin')">Administrator</button>
+        <button class="auth-tab" onclick="switchAuthTab('admin')">Admin / Teacher</button>
       </div>
       <div id="loginAlert"></div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="loginEmail" placeholder="you@example.com" />
-      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="loginEmail" placeholder="you@example.com" /></div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter password" />
+        <div class="pw-wrap"><input type="password" id="loginPassword" placeholder="Enter password" /><button class="pw-toggle" onclick="togglePw('loginPassword',this)">Show</button></div>
       </div>
       <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
-      <p style="text-align:center;font-size:12px;color:var(--text-light);margin-top:1rem;">
-        Demo student: <b>student@wdi.com</b> / <b>pass123</b><br>
-        Demo admin: <b>admin@wdi.com</b> / <b>admin123</b>
-      </p>
+      <div style="margin-top:1.25rem;padding:12px 14px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);border-radius:var(--radius);font-size:12px;color:var(--text-mid);line-height:2;">
+        <strong style="color:var(--accent);">Demo credentials</strong><br>
+        Student: student@wdi.com / pass123<br>
+        Teacher: teacher@wdi.com / teach123<br>
+        Admin: admin@wdi.com / admin123
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ STUDENT DASHBOARD -->
+<!-- STUDENT DASHBOARD -->
 <div id="studentDash" class="page">
   <div class="dashboard">
     <div class="sidebar">
       <span class="sidebar-label">Student</span>
-      <button class="sidebar-item active" onclick="sDash('sExams')" id="si-sExams">
-        <span class="sidebar-icon">📋</span> My Exams
-      </button>
-      <button class="sidebar-item" onclick="sDash('sResults')" id="si-sResults">
-        <span class="sidebar-icon">📊</span> My Results
-      </button>
-      <button class="sidebar-item" onclick="sDash('sProfile')" id="si-sProfile">
-        <span class="sidebar-icon">👤</span> Profile
-      </button>
+      <button class="sidebar-item active" onclick="sDash('sExams')" id="si-sExams"><span class="sidebar-icon">📋</span> My Exams</button>
+      <button class="sidebar-item" onclick="sDash('sResults')" id="si-sResults"><span class="sidebar-icon">📊</span> My Results</button>
+      <button class="sidebar-item" onclick="sDash('sProfile')" id="si-sProfile"><span class="sidebar-icon">👤</span> Profile</button>
       <div style="flex:1"></div>
-      <button class="sidebar-item" onclick="logout()" style="color:var(--danger)">
-        <span class="sidebar-icon">🚪</span> Sign Out
-      </button>
+      <button class="sidebar-item" onclick="logout()" style="color:var(--danger)"><span class="sidebar-icon">🚪</span> Sign Out</button>
     </div>
     <div class="main-content">
-      <!-- EXAMS TAB -->
-      <div id="sExams">
-        <p class="page-title">Available Exams</p>
-        <p class="page-sub">Select an exam below to begin. Ensure you have a stable connection.</p>
-        <div class="exam-list" id="studentExamList"></div>
-      </div>
-      <!-- RESULTS TAB -->
-      <div id="sResults" style="display:none">
-        <p class="page-title">My Results</p>
-        <p class="page-sub">Your exam history and scores.</p>
-        <div id="studentResultsList"></div>
-      </div>
-      <!-- PROFILE TAB -->
-      <div id="sProfile" style="display:none">
-        <p class="page-title">Profile</p>
-        <p class="page-sub">Your account details.</p>
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;max-width:420px;">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
-            <div style="width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--accent);font-family:var(--font-head);">S</div>
-            <div>
-              <p style="font-weight:600;color:var(--navy);" id="profName">Demo Student</p>
-              <p class="text-sm text-mid" id="profEmail">student@wdi.com</p>
-            </div>
-          </div>
-          <hr class="divider"/>
-          <p class="text-sm text-mid">Student ID: <span style="color:var(--text);font-weight:500;">WDI-2024-001</span></p>
-          <p class="text-sm text-mid" style="margin-top:6px;">Programme: <span style="color:var(--text);font-weight:500;">Full Stack Development</span></p>
-        </div>
-      </div>
+      <div id="sExams"><p class="page-title">Available Exams</p><p class="page-sub">Select an exam to begin. Ensure you have a stable connection.</p><div class="exam-list" id="studentExamList"></div></div>
+      <div id="sResults" style="display:none"><p class="page-title">My Results</p><p class="page-sub">Your exam history and scores.</p><div id="studentResultsList"></div></div>
+      <div id="sProfile" style="display:none"><p class="page-title">Profile</p><p class="page-sub">Your account details.</p><div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;max-width:420px;" id="sProfileCard"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ EXAM INTERFACE -->
+<!-- EXAM INTERFACE -->
 <div id="examInterface" class="page">
   <div class="exam-wrap">
     <div class="exam-header">
-      <div class="exam-title-info">
-        <h2 id="examRunTitle">Exam Title</h2>
-        <p id="examRunMeta">Subject • 20 Questions</p>
-      </div>
-      <div>
-        <div class="exam-timer" id="examTimerBox">
-          <div>
-            <div class="timer-label">Time Remaining</div>
-            <div id="examTimerDisplay">00:00</div>
-          </div>
-        </div>
-      </div>
+      <div class="exam-title-info"><h2 id="examRunTitle"></h2><p id="examRunMeta"></p></div>
+      <div class="exam-timer" id="examTimerBox"><div><div class="timer-label">Time Remaining</div><div id="examTimerDisplay">00:00</div></div></div>
     </div>
     <div class="exam-body">
       <div class="question-nav">
@@ -476,13 +236,13 @@
         <hr class="divider"/>
         <div style="font-size:12px;color:var(--text-mid);">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><span style="width:12px;height:12px;background:var(--success);border-radius:3px;display:inline-block;"></span> Answered</div>
-          <div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;background:var(--white);border:1.5px solid var(--border);border-radius:3px;display:inline-block;"></span> Unanswered</div>
+          <div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border:1.5px solid var(--border);border-radius:3px;display:inline-block;"></span> Unanswered</div>
         </div>
       </div>
       <div class="question-main">
-        <div class="question-card" id="questionCard">
-          <p class="q-number" id="qNumber">Question 1 of 20</p>
-          <p class="q-text" id="qText">Loading question...</p>
+        <div class="question-card">
+          <p class="q-number" id="qNumber"></p>
+          <p class="q-text" id="qText"></p>
           <div id="qOptions"></div>
           <hr class="divider"/>
           <div class="q-nav-footer">
@@ -490,147 +250,101 @@
             <button class="btn btn-primary btn-sm" id="btnNext" onclick="nextQ()">Next →</button>
           </div>
         </div>
-        <div style="margin-top:1rem;text-align:right;">
-          <button class="btn btn-success btn-sm" onclick="confirmSubmit()">Submit Exam ✓</button>
-        </div>
+        <div style="margin-top:1rem;text-align:right;"><button class="btn btn-success btn-sm" onclick="confirmSubmit()">Submit Exam ✓</button></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ EXAM RESULT -->
+<!-- EXAM RESULT -->
 <div id="examResult" class="page">
   <div class="result-wrap">
     <div class="result-card">
       <div class="score-ring">
         <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="50" fill="none" stroke="#E2E8F0" stroke-width="10"/>
-          <circle cx="60" cy="60" r="50" fill="none" stroke="#0EA5E9" stroke-width="10"
-            stroke-dasharray="314" stroke-dashoffset="314" id="scoreCircle" stroke-linecap="round"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#38bdf8" stroke-width="10" stroke-dasharray="314" stroke-dashoffset="314" id="scoreCircle" stroke-linecap="round"/>
         </svg>
-        <div class="score-text">
-          <div class="score-pct" id="scorePct">0%</div>
-          <div class="score-sub">Score</div>
-        </div>
+        <div class="score-text"><div class="score-pct" id="scorePct">0%</div><div class="score-sub">Score</div></div>
       </div>
-      <h2 class="result-title" id="resultTitle">Exam Submitted</h2>
-      <p class="result-meta" id="resultMeta">Well done on completing the exam.</p>
+      <h2 class="result-title" id="resultTitle"></h2>
+      <p class="result-meta" id="resultMeta"></p>
       <div class="result-stats">
-        <div class="result-stat"><div class="rs-label">Correct</div><div class="rs-value green" id="rCorrect">0</div></div>
-        <div class="result-stat"><div class="rs-label">Wrong</div><div class="rs-value red" id="rWrong">0</div></div>
-        <div class="result-stat"><div class="rs-label">Total</div><div class="rs-value blue" id="rTotal">0</div></div>
+        <div class="result-stat"><div class="rs-label">Correct</div><div class="rs-value" style="color:var(--success)" id="rCorrect">0</div></div>
+        <div class="result-stat"><div class="rs-label">Wrong</div><div class="rs-value" style="color:var(--danger)" id="rWrong">0</div></div>
+        <div class="result-stat"><div class="rs-label">Total</div><div class="rs-value" style="color:var(--accent)" id="rTotal">0</div></div>
       </div>
       <button class="btn btn-primary" onclick="goTo('studentDash');sDash('sResults')">View All Results</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════ ADMIN DASHBOARD -->
+<!-- ADMIN DASHBOARD -->
 <div id="adminDash" class="page">
   <div class="dashboard">
     <div class="sidebar">
-      <span class="sidebar-label">Admin</span>
-      <button class="sidebar-item active" onclick="aDash('aOverview')" id="si-aOverview">
-        <span class="sidebar-icon">🏠</span> Overview
-      </button>
-      <button class="sidebar-item" onclick="aDash('aExams')" id="si-aExams">
-        <span class="sidebar-icon">📋</span> Manage Exams
-      </button>
-      <button class="sidebar-item" onclick="aDash('aStudents')" id="si-aStudents">
-        <span class="sidebar-icon">👥</span> Students
-      </button>
-      <button class="sidebar-item" onclick="aDash('aResults')" id="si-aResults">
-        <span class="sidebar-icon">📊</span> Results
-      </button>
+      <span class="sidebar-label" id="adminSidebarLabel">Admin</span>
+      <button class="sidebar-item active" onclick="aDash('aOverview')" id="si-aOverview"><span class="sidebar-icon">🏠</span> Overview</button>
+      <button class="sidebar-item" onclick="aDash('aExams')" id="si-aExams"><span class="sidebar-icon">📋</span> Manage Exams</button>
+      <button class="sidebar-item" onclick="aDash('aUsers')" id="si-aUsers"><span class="sidebar-icon">👥</span> Users</button>
+      <button class="sidebar-item" onclick="aDash('aResults')" id="si-aResults"><span class="sidebar-icon">📊</span> Results</button>
       <div style="flex:1"></div>
-      <button class="sidebar-item" onclick="logout()" style="color:var(--danger)">
-        <span class="sidebar-icon">🚪</span> Sign Out
-      </button>
+      <button class="sidebar-item" onclick="logout()" style="color:var(--danger)"><span class="sidebar-icon">🚪</span> Sign Out</button>
     </div>
     <div class="main-content">
 
-      <!-- OVERVIEW -->
       <div id="aOverview">
-        <p class="page-title">Admin Overview</p>
-        <p class="page-sub">Welcome back. Here's what's happening today.</p>
+        <p class="page-title" id="adminWelcomeTitle">Admin Overview</p>
+        <p class="page-sub">Portal summary at a glance.</p>
         <div class="stat-grid">
-          <div class="stat-card">
-            <div class="stat-label">Total Exams</div>
-            <div class="stat-value" id="statExams">0</div>
-            <span class="stat-badge badge-blue">Published</span>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Students</div>
-            <div class="stat-value">1</div>
-            <span class="stat-badge badge-green">Active</span>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Submissions</div>
-            <div class="stat-value" id="statSubs">0</div>
-            <span class="stat-badge badge-blue">Total</span>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Avg. Score</div>
-            <div class="stat-value" id="statAvg">—</div>
-            <span class="stat-badge badge-green">All time</span>
-          </div>
+          <div class="stat-card"><div class="stat-label">Active Exams</div><div class="stat-value" id="statExams">0</div><span class="stat-badge badge-blue">Published</span></div>
+          <div class="stat-card"><div class="stat-label">Students</div><div class="stat-value" id="statStudents">0</div><span class="stat-badge badge-green">Registered</span></div>
+          <div class="stat-card"><div class="stat-label">Teachers</div><div class="stat-value" id="statTeachers">0</div><span class="stat-badge badge-purple">Staff</span></div>
+          <div class="stat-card"><div class="stat-label">Submissions</div><div class="stat-value" id="statSubs">0</div><span class="stat-badge badge-blue">Total</span></div>
+          <div class="stat-card"><div class="stat-label">Avg. Score</div><div class="stat-value" id="statAvg">—</div><span class="stat-badge badge-green">All time</span></div>
         </div>
-        <div class="alert alert-warning">
-          <strong>Demo mode:</strong> Data is stored in memory and resets on page refresh. Connect to a backend for production use.
-        </div>
+        <div class="alert alert-warning"><strong>Demo mode:</strong> Data resets on page refresh. Connect a backend for production.</div>
       </div>
 
-      <!-- EXAMS -->
       <div id="aExams" style="display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
-          <div>
-            <p class="page-title">Manage Exams</p>
-            <p class="page-sub">Create, edit, and publish exam papers.</p>
-          </div>
+        <div class="section-header">
+          <div><p class="page-title">Manage Exams</p><p class="page-sub">Create, edit, and publish exams.</p></div>
           <button class="btn btn-primary btn-sm" onclick="openCreateExam()">+ New Exam</button>
         </div>
         <div class="table-card">
-          <div class="table-head">
-            <span class="table-title">All Exams</span>
-            <input class="search-input" placeholder="Search exams..." oninput="filterExams(this.value)" />
+          <div class="table-head"><span class="table-title">All Exams</span><input class="search-input" placeholder="Search exams..." oninput="filterTable('examsTable',this.value)" /></div>
+          <table><thead><tr><th>Title</th><th>Subject</th><th>Questions</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody id="examsTable"></tbody></table>
+        </div>
+      </div>
+
+      <div id="aUsers" style="display:none">
+        <div class="section-header">
+          <div><p class="page-title">User Management</p><p class="page-sub">Manage students and teachers.</p></div>
+          <div id="userActionBtns" style="display:flex;gap:8px;"></div>
+        </div>
+        <div class="tab-row">
+          <button class="tab-btn active" onclick="switchUserTab('students')" id="utab-students">Students</button>
+          <button class="tab-btn" onclick="switchUserTab('teachers')" id="utab-teachers">Teachers</button>
+        </div>
+        <div id="studentsPanel">
+          <div class="table-card">
+            <div class="table-head"><span class="table-title">All Students</span><input class="search-input" placeholder="Search..." oninput="filterTable('studentsTable',this.value)" /></div>
+            <table><thead><tr><th>Name</th><th>Email</th><th>Programme</th><th>Student ID</th><th>Status</th><th>Actions</th></tr></thead><tbody id="studentsTable"></tbody></table>
           </div>
-          <table>
-            <thead><tr><th>Title</th><th>Subject</th><th>Questions</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody id="examsTable"></tbody>
-          </table>
+        </div>
+        <div id="teachersPanel" style="display:none">
+          <div class="table-card">
+            <div class="table-head"><span class="table-title">All Teachers</span><input class="search-input" placeholder="Search..." oninput="filterTable('teachersTable',this.value)" /></div>
+            <table><thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Status</th><th>Actions</th></tr></thead><tbody id="teachersTable"></tbody></table>
+          </div>
         </div>
       </div>
 
-      <!-- STUDENTS -->
-      <div id="aStudents" style="display:none">
-        <p class="page-title">Students</p>
-        <p class="page-sub">Registered students in the portal.</p>
-        <div class="table-card">
-          <div class="table-head"><span class="table-title">Student List</span></div>
-          <table>
-            <thead><tr><th>Name</th><th>Email</th><th>Programme</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr>
-                <td style="font-weight:500;">Demo Student</td>
-                <td>student@wdi.com</td>
-                <td>Full Stack Development</td>
-                <td><span class="status-pill pill-active">Active</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- RESULTS -->
       <div id="aResults" style="display:none">
-        <p class="page-title">Exam Results</p>
-        <p class="page-sub">All student submissions.</p>
+        <p class="page-title">Exam Results</p><p class="page-sub">All student submissions.</p>
         <div class="table-card">
-          <div class="table-head"><span class="table-title">All Submissions</span></div>
-          <table>
-            <thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Grade</th><th>Date</th></tr></thead>
-            <tbody id="allResultsTable"></tbody>
-          </table>
+          <div class="table-head"><span class="table-title">All Submissions</span><input class="search-input" placeholder="Search..." oninput="filterTable('allResultsTable',this.value)" /></div>
+          <table><thead><tr><th>Student</th><th>Exam</th><th>Score</th><th>Grade</th><th>Result</th><th>Date</th></tr></thead><tbody id="allResultsTable"></tbody></table>
         </div>
       </div>
 
@@ -638,41 +352,22 @@
   </div>
 </div>
 
-<!-- ═══════════════ MODAL: Create/Edit Exam -->
+<!-- MODAL: Exam -->
 <div class="modal-overlay hidden" id="examModal">
   <div class="modal">
     <h3 class="modal-title" id="examModalTitle">Create New Exam</h3>
     <div class="grid-2">
-      <div class="form-group">
-        <label>Exam Title</label>
-        <input type="text" id="examTitle" placeholder="e.g. HTML & CSS Fundamentals" />
-      </div>
-      <div class="form-group">
-        <label>Subject</label>
-        <input type="text" id="examSubject" placeholder="e.g. Web Development" />
-      </div>
+      <div class="form-group"><label>Exam Title</label><input type="text" id="examTitle" placeholder="e.g. HTML & CSS Fundamentals" /></div>
+      <div class="form-group"><label>Subject</label><input type="text" id="examSubject" placeholder="e.g. Web Development" /></div>
     </div>
     <div class="grid-2">
-      <div class="form-group">
-        <label>Duration (minutes)</label>
-        <input type="number" id="examDuration" value="30" min="5" />
-      </div>
-      <div class="form-group">
-        <label>Pass Mark (%)</label>
-        <input type="number" id="examPassMark" value="50" min="0" max="100" />
-      </div>
+      <div class="form-group"><label>Duration (minutes)</label><input type="number" id="examDuration" value="30" min="5" /></div>
+      <div class="form-group"><label>Pass Mark (%)</label><input type="number" id="examPassMark" value="50" min="0" max="100" /></div>
     </div>
-    <div class="form-group">
-      <label>Status</label>
-      <select id="examStatus">
-        <option value="draft">Draft</option>
-        <option value="active">Active (Students can take it)</option>
-        <option value="expired">Expired</option>
-      </select>
-    </div>
+    <div class="form-group"><label>Status</label><select id="examStatus"><option value="draft">Draft</option><option value="active">Active</option><option value="expired">Expired</option></select></div>
     <hr class="divider"/>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
-      <p style="font-weight:600;color:var(--navy);">Questions</p>
+      <p style="font-weight:600;color:var(--text);">Questions</p>
       <button class="btn btn-outline btn-sm" onclick="addQuestion()">+ Add Question</button>
     </div>
     <div id="questionsList"></div>
@@ -683,12 +378,54 @@
   </div>
 </div>
 
-<!-- MODAL: Confirm Submit -->
+<!-- MODAL: Student -->
+<div class="modal-overlay hidden" id="studentModal">
+  <div class="modal modal-sm">
+    <h3 class="modal-title" id="studentModalTitle">Add New Student</h3>
+    <div id="studentModalAlert"></div>
+    <div class="grid-2">
+      <div class="form-group"><label>Full Name</label><input type="text" id="sName" placeholder="e.g. Amaka Osei" /></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="sEmail" placeholder="student@example.com" /></div>
+    </div>
+    <div class="form-group"><label>Password</label><div class="pw-wrap"><input type="password" id="sPassword" placeholder="Set a password" /><button class="pw-toggle" onclick="togglePw('sPassword',this)">Show</button></div></div>
+    <div class="grid-2">
+      <div class="form-group"><label>Programme / Course</label><input type="text" id="sProgramme" placeholder="e.g. Full Stack Development" /></div>
+      <div class="form-group"><label>Status</label><select id="sStatus"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('studentModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="saveStudent()">Save Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Teacher -->
+<div class="modal-overlay hidden" id="teacherModal">
+  <div class="modal modal-sm">
+    <h3 class="modal-title" id="teacherModalTitle">Add New Teacher</h3>
+    <div id="teacherModalAlert"></div>
+    <div class="grid-2">
+      <div class="form-group"><label>Full Name</label><input type="text" id="tName" placeholder="e.g. Mr. John Adeyemi" /></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="tEmail" placeholder="teacher@example.com" /></div>
+    </div>
+    <div class="form-group"><label>Password</label><div class="pw-wrap"><input type="password" id="tPassword" placeholder="Set a password" /><button class="pw-toggle" onclick="togglePw('tPassword',this)">Show</button></div></div>
+    <div class="grid-2">
+      <div class="form-group"><label>Subject / Specialisation</label><input type="text" id="tSubject" placeholder="e.g. Web Development" /></div>
+      <div class="form-group"><label>Status</label><select id="tStatus"><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('teacherModal')">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="saveTeacher()">Save Teacher</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Submit Exam -->
 <div class="modal-overlay hidden" id="submitModal">
-  <div class="modal" style="max-width:400px;text-align:center;">
+  <div class="modal modal-sm" style="text-align:center;">
     <div style="font-size:40px;margin-bottom:1rem;">📤</div>
     <h3 class="modal-title" style="justify-content:center;">Submit Exam?</h3>
-    <p style="color:var(--text-mid);font-size:14px;margin-bottom:1.5rem;" id="submitWarning">You have answered 0 of 0 questions. Are you sure you want to submit?</p>
+    <p style="color:var(--text-mid);font-size:14px;margin-bottom:1.5rem;" id="submitWarning"></p>
     <div class="modal-footer" style="justify-content:center;border:none;padding:0;">
       <button class="btn btn-outline btn-sm" onclick="closeModal('submitModal')">Review Answers</button>
       <button class="btn btn-success btn-sm" onclick="submitExam()">Yes, Submit</button>
@@ -696,425 +433,439 @@
   </div>
 </div>
 
+<!-- MODAL: Delete Confirm -->
+<div class="modal-overlay hidden" id="deleteModal">
+  <div class="modal modal-sm" style="text-align:center;">
+    <div style="font-size:36px;margin-bottom:1rem;">🗑️</div>
+    <h3 class="modal-title" style="justify-content:center;" id="deleteModalTitle">Delete?</h3>
+    <p style="color:var(--text-mid);font-size:14px;margin-bottom:1.5rem;" id="deleteModalMsg"></p>
+    <div class="modal-footer" style="justify-content:center;border:none;padding:0;">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('deleteModal')">Cancel</button>
+      <button class="btn btn-sm" style="background:var(--danger);color:white;width:auto;" id="deleteConfirmBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// ═══ DATA STORE ═══
-const USERS = {
-  'student@wdi.com': { password: 'pass123', role: 'student', name: 'Demo Student' },
-  'admin@wdi.com':   { password: 'admin123', role: 'admin', name: 'Administrator' }
+// ══ DATA ══
+let USERS = {
+  'student@wdi.com':  { password:'pass123',  role:'student',  name:'Demo Student',     programme:'Full Stack Development', status:'active',   studentId:'WDI-2024-001' },
+  'student2@wdi.com': { password:'pass123',  role:'student',  name:'Amaka Osei',       programme:'Python & Data Science',  status:'active',   studentId:'WDI-2024-002' },
+  'teacher@wdi.com':  { password:'teach123', role:'teacher',  name:'Mr. John Adeyemi', subject:'Web Development',          status:'active' },
+  'admin@wdi.com':    { password:'admin123', role:'admin',    name:'Administrator',                                         status:'active' }
 };
-
+let nextStudentNum = 3;
 let exams = [
-  {
-    id: 1, title: 'HTML & CSS Fundamentals', subject: 'Web Development',
-    duration: 30, passMark: 50, status: 'active',
-    questions: [
-      { text: 'What does HTML stand for?', options: ['HyperText Markup Language','HighText Machine Language','HyperText Machine Language','HyperTool Markup Language'], answer: 0 },
-      { text: 'Which HTML tag is used to define an unordered list?', options: ['<ol>','<ul>','<li>','<list>'], answer: 1 },
-      { text: 'Which CSS property controls the text size?', options: ['font-weight','text-size','font-size','text-style'], answer: 2 },
-      { text: 'What is the correct CSS syntax for making all <p> elements bold?', options: ['p {text-size:bold}','p {font-weight:bold}','<p style="font-size:bold">','p.all {font-weight:bold}'], answer: 1 },
-      { text: 'Which HTML attribute is used to define inline styles?', options: ['class','styles','style','font'], answer: 2 },
-    ]
-  },
-  {
-    id: 2, title: 'Python Basics', subject: 'Programming',
-    duration: 45, passMark: 60, status: 'active',
-    questions: [
-      { text: 'What is the correct file extension for Python files?', options: ['.pyt','.pt','.py','.python'], answer: 2 },
-      { text: 'How do you insert a COMMENT in Python?', options: ['// This is a comment','/* This is a comment */','# This is a comment','<!-- comment -->'], answer: 2 },
-      { text: 'Which function is used to print output in Python?', options: ['echo()','print()','write()','output()'], answer: 1 },
-      { text: 'What is the correct way to create a variable in Python?', options: ['var x = 5','int x = 5','x = 5','x := 5'], answer: 2 },
-    ]
-  }
+  { id:1, title:'HTML & CSS Fundamentals', subject:'Web Development', duration:30, passMark:50, status:'active', questions:[
+    { text:'What does HTML stand for?', options:['HyperText Markup Language','HighText Machine Language','HyperText Machine Language','HyperTool Markup Language'], answer:0 },
+    { text:'Which HTML tag is used to define an unordered list?', options:['<ol>','<ul>','<li>','<list>'], answer:1 },
+    { text:'Which CSS property controls text size?', options:['font-weight','text-size','font-size','text-style'], answer:2 },
+    { text:'Correct CSS to make all <p> elements bold?', options:['p {text-size:bold}','p {font-weight:bold}','<p style="font-size:bold">','p.all {font-weight:bold}'], answer:1 },
+    { text:'Which HTML attribute defines inline styles?', options:['class','styles','style','font'], answer:2 },
+  ]},
+  { id:2, title:'Python Basics', subject:'Programming', duration:45, passMark:60, status:'active', questions:[
+    { text:'Correct file extension for Python files?', options:['.pyt','.pt','.py','.python'], answer:2 },
+    { text:'How do you insert a COMMENT in Python?', options:['// comment','/* comment */','# comment','<!-- comment -->'], answer:2 },
+    { text:'Function used to print output in Python?', options:['echo()','print()','write()','output()'], answer:1 },
+    { text:'Correct way to create a variable in Python?', options:['var x = 5','int x = 5','x = 5','x := 5'], answer:2 },
+  ]}
 ];
-
 let results = [];
 let nextExamId = 3;
-let currentUser = null;
-let currentRole = null;
-let currentExam = null;
-let currentQ = 0;
-let answers = [];
-let timerInterval = null;
-let secondsLeft = 0;
-let editingExamId = null;
-let authMode = 'student';
+let currentUser = null, currentUserEmail = null, currentRole = null;
+let currentExam = null, currentQ = 0, answers = [];
+let timerInterval = null, secondsLeft = 0;
+let editingExamId = null, editingUserEmail = null;
+let authMode = 'student', currentUserTab = 'students', qCount = 0;
 
-// ═══ AUTH ═══
+// ══ AUTH ══
 function switchAuthTab(tab) {
   authMode = tab;
-  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0) === (tab==='student')));
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active',(i===0)===(tab==='student')));
 }
-
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type==='password' ? 'text' : 'password';
+  btn.textContent = inp.type==='password' ? 'Show' : 'Hide';
+}
 function doLogin() {
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const pass  = document.getElementById('loginPassword').value;
   const al    = document.getElementById('loginAlert');
   const user  = USERS[email];
-  if (!user || user.password !== pass) {
-    al.innerHTML = '<div class="alert alert-danger">Invalid email or password.</div>';
-    return;
-  }
-  if (authMode === 'admin' && user.role !== 'admin') {
-    al.innerHTML = '<div class="alert alert-danger">This account does not have admin access.</div>';
-    return;
-  }
-  if (authMode === 'student' && user.role !== 'student') {
-    al.innerHTML = '<div class="alert alert-danger">Please use the Admin tab to sign in.</div>';
-    return;
-  }
+  if (!user || user.password !== pass) { al.innerHTML='<div class="alert alert-danger">Invalid email or password.</div>'; return; }
+  if (user.status==='inactive') { al.innerHTML='<div class="alert alert-danger">Account deactivated. Contact an administrator.</div>'; return; }
+  if (authMode==='admin' && user.role==='student') { al.innerHTML='<div class="alert alert-danger">Students must use the Student tab.</div>'; return; }
+  if (authMode==='student' && user.role!=='student') { al.innerHTML='<div class="alert alert-danger">Staff must use the Admin / Teacher tab.</div>'; return; }
   al.innerHTML = '';
-  currentUser = user;
-  currentRole = user.role;
-  if (user.role === 'admin') {
-    renderAdminDash();
-    goTo('adminDash');
-    setNav('admin');
-  } else {
-    renderStudentDash();
-    goTo('studentDash');
-    setNav('student');
-  }
+  currentUser = user; currentUserEmail = email; currentRole = user.role;
+  if (user.role==='student') { renderStudentDash(); goTo('studentDash'); setNav('student'); }
+  else { renderAdminDash(); goTo('adminDash'); setNav('admin'); }
 }
-
 function logout() {
-  currentUser = null; currentRole = null;
+  currentUser=null; currentUserEmail=null; currentRole=null;
+  clearInterval(timerInterval);
   goTo('loginPage'); setNav('guest');
-  document.getElementById('loginEmail').value = '';
-  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginEmail').value='';
+  document.getElementById('loginPassword').value='';
+  document.getElementById('loginAlert').innerHTML='';
 }
-
 function setNav(role) {
   const nav = document.getElementById('topNav');
-  if (role === 'guest') nav.innerHTML = '<button class="nav-btn active" onclick="goTo(\'loginPage\')">Login</button>';
-  else if (role === 'student') nav.innerHTML = `<span style="font-size:13px;color:rgba(255,255,255,0.7);padding:0 10px;">${currentUser.name}</span><button class="nav-btn danger" onclick="logout()">Sign Out</button>`;
-  else nav.innerHTML = `<span style="font-size:13px;color:rgba(255,255,255,0.7);padding:0 10px;">Admin</span><button class="nav-btn danger" onclick="logout()">Sign Out</button>`;
+  if (role==='guest') nav.innerHTML='<button class="nav-btn">Login</button>';
+  else if (role==='student') nav.innerHTML=`<span style="font-size:13px;color:rgba(255,255,255,0.6);padding:0 8px;">${currentUser.name}</span><button class="nav-btn danger" onclick="logout()">Sign Out</button>`;
+  else nav.innerHTML=`<span style="font-size:13px;color:rgba(255,255,255,0.6);padding:0 8px;">${currentUser.name} <span style="color:var(--accent);font-size:11px;font-weight:600;">${currentUser.role.toUpperCase()}</span></span><button class="nav-btn danger" onclick="logout()">Sign Out</button>`;
 }
 
-// ═══ NAVIGATION ═══
-function goTo(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
+// ══ NAVIGATION ══
+function goTo(id) { document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function sDash(tab) {
-  ['sExams','sResults','sProfile'].forEach(t => document.getElementById(t).style.display = t===tab ? 'block' : 'none');
-  ['si-sExams','si-sResults','si-sProfile'].forEach(id => document.getElementById(id).classList.remove('active'));
+  ['sExams','sResults','sProfile'].forEach(t=>document.getElementById(t).style.display=t===tab?'block':'none');
+  ['si-sExams','si-sResults','si-sProfile'].forEach(id=>document.getElementById(id).classList.remove('active'));
   document.getElementById('si-'+tab).classList.add('active');
-  if (tab === 'sResults') renderStudentResults();
+  if (tab==='sResults') renderStudentResults();
+  if (tab==='sProfile') renderStudentProfile();
 }
-
 function aDash(tab) {
-  ['aOverview','aExams','aStudents','aResults'].forEach(t => document.getElementById(t).style.display = t===tab ? 'block' : 'none');
-  ['si-aOverview','si-aExams','si-aStudents','si-aResults'].forEach(id => document.getElementById(id).classList.remove('active'));
+  ['aOverview','aExams','aUsers','aResults'].forEach(t=>document.getElementById(t).style.display=t===tab?'block':'none');
+  ['si-aOverview','si-aExams','si-aUsers','si-aResults'].forEach(id=>document.getElementById(id).classList.remove('active'));
   document.getElementById('si-'+tab).classList.add('active');
-  if (tab === 'aExams') renderExamsTable();
-  if (tab === 'aResults') renderAllResults();
-  if (tab === 'aOverview') updateAdminStats();
+  if (tab==='aExams') renderExamsTable();
+  if (tab==='aUsers') { renderStudentsTable(); renderTeachersTable(); updateUserActionBtns(); }
+  if (tab==='aResults') renderAllResults();
+  if (tab==='aOverview') updateAdminStats();
 }
 
-// ═══ STUDENT DASHBOARD ═══
+// ══ STUDENT ══
 function renderStudentDash() {
-  document.getElementById('profName').textContent = currentUser.name;
-  document.getElementById('profEmail').textContent = Object.keys(USERS).find(k => USERS[k] === currentUser);
+  const active = exams.filter(e=>e.status==='active');
   const list = document.getElementById('studentExamList');
-  const active = exams.filter(e => e.status === 'active');
-  if (!active.length) { list.innerHTML = '<div class="alert alert-warning">No exams are currently available.</div>'; return; }
-  list.innerHTML = active.map(e => `
+  list.innerHTML = active.length ? active.map(e=>`
     <div class="exam-list-item">
-      <div class="eli-info">
-        <h3>${e.title}</h3>
-        <p>${e.subject} &bull; ${e.questions.length} questions &bull; ${e.duration} min &bull; Pass: ${e.passMark}%</p>
-      </div>
+      <div class="eli-info"><h3>${e.title}</h3><p>${e.subject} &bull; ${e.questions.length} questions &bull; ${e.duration} min &bull; Pass: ${e.passMark}%</p></div>
       <button class="btn btn-primary btn-sm" onclick="startExam(${e.id})">Start Exam →</button>
-    </div>`).join('');
+    </div>`).join('') : '<div class="alert alert-warning">No exams are currently available.</div>';
 }
-
+function renderStudentProfile() {
+  const u = currentUser;
+  const ini = u.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('sProfileCard').innerHTML = `
+    <div class="flex-row" style="margin-bottom:1.25rem;">
+      <div class="avatar av-blue" style="width:52px;height:52px;font-size:18px;">${ini}</div>
+      <div><p style="font-weight:600;color:var(--text);">${u.name}</p><p style="font-size:13px;color:var(--text-mid);">${currentUserEmail}</p></div>
+    </div>
+    <hr class="divider"/>
+    <p style="font-size:13px;color:var(--text-mid);">Student ID: <strong style="color:var(--text);">${u.studentId||'—'}</strong></p>
+    <p style="font-size:13px;color:var(--text-mid);margin-top:6px;">Programme: <strong style="color:var(--text);">${u.programme||'—'}</strong></p>
+    <p style="font-size:13px;color:var(--text-mid);margin-top:6px;">Status: <span class="status-pill ${u.status==='active'?'pill-active':'pill-inactive'}" style="font-size:11px;">${u.status}</span></p>`;
+}
 function renderStudentResults() {
+  const mine = results.filter(r=>r.email===currentUserEmail);
   const el = document.getElementById('studentResultsList');
-  const mine = results.filter(r => r.email === Object.keys(USERS).find(k => USERS[k] === currentUser));
-  if (!mine.length) { el.innerHTML = '<div class="alert alert-warning">You have not completed any exams yet.</div>'; return; }
-  el.innerHTML = '<div class="table-card"><table><thead><tr><th>Exam</th><th>Score</th><th>Grade</th><th>Result</th><th>Date</th></tr></thead><tbody>' +
-    mine.map(r => {
-      const grade = r.pct >= 70 ? 'A' : r.pct >= 60 ? 'B' : r.pct >= 50 ? 'C' : 'F';
-      const passed = r.pct >= r.passMark;
-      return `<tr><td style="font-weight:500;">${r.examTitle}</td><td>${r.correct}/${r.total}</td><td>${grade}</td>
-        <td><span class="status-pill ${passed?'pill-active':'pill-expired'}">${passed?'Passed':'Failed'}</span></td>
-        <td style="color:var(--text-mid);">${r.date}</td></tr>`;
-    }).join('') + '</tbody></table></div>';
+  if (!mine.length) { el.innerHTML='<div class="alert alert-warning">You have not completed any exams yet.</div>'; return; }
+  const grade = pct=>pct>=70?'A':pct>=60?'B':pct>=50?'C':'F';
+  el.innerHTML='<div class="table-card"><table><thead><tr><th>Exam</th><th>Score</th><th>Grade</th><th>Result</th><th>Date</th></tr></thead><tbody>'+
+    mine.map(r=>{
+      const passed=r.pct>=r.passMark;
+      return `<tr><td style="font-weight:500;">${r.examTitle}</td><td>${r.correct}/${r.total} (${r.pct}%)</td><td>${grade(r.pct)}</td><td><span class="status-pill ${passed?'pill-active':'pill-expired'}">${passed?'Passed':'Failed'}</span></td><td style="color:var(--text-mid);">${r.date}</td></tr>`;
+    }).join('')+'</tbody></table></div>';
 }
 
-// ═══ EXAM ENGINE ═══
+// ══ EXAM ENGINE ══
 function startExam(id) {
-  currentExam = exams.find(e => e.id === id);
-  if (!currentExam) return;
+  currentExam = exams.find(e=>e.id===id); if (!currentExam) return;
   answers = new Array(currentExam.questions.length).fill(null);
-  currentQ = 0;
-  secondsLeft = currentExam.duration * 60;
+  currentQ=0; secondsLeft=currentExam.duration*60;
   goTo('examInterface');
   document.getElementById('examRunTitle').textContent = currentExam.title;
   document.getElementById('examRunMeta').textContent = `${currentExam.subject} • ${currentExam.questions.length} Questions`;
-  buildQNav();
-  renderQuestion();
-  startTimer();
+  buildQNav(); renderQuestion(); startTimer();
 }
-
 function buildQNav() {
-  const grid = document.getElementById('qNavGrid');
-  grid.innerHTML = currentExam.questions.map((_, i) => `
-    <button class="q-nav-btn ${i===0?'current':''}" id="qnav-${i}" onclick="jumpQ(${i})">${i+1}</button>`).join('');
+  document.getElementById('qNavGrid').innerHTML = currentExam.questions.map((_,i)=>
+    `<button class="q-nav-btn ${i===0?'current':''}" id="qnav-${i}" onclick="jumpQ(${i})">${i+1}</button>`).join('');
 }
-
 function renderQuestion() {
   const q = currentExam.questions[currentQ];
   document.getElementById('qNumber').textContent = `Question ${currentQ+1} of ${currentExam.questions.length}`;
   document.getElementById('qText').textContent = q.text;
-  const letters = ['A','B','C','D'];
-  document.getElementById('qOptions').innerHTML = q.options.map((opt, i) => `
+  document.getElementById('qOptions').innerHTML = q.options.map((opt,i)=>`
     <div class="mcq-option ${answers[currentQ]===i?'selected':''}" onclick="selectAnswer(${i})">
       <input type="radio" name="q${currentQ}" ${answers[currentQ]===i?'checked':''} readonly />
-      <span class="option-letter">${letters[i]}</span>
-      <span>${opt}</span>
+      <span class="option-letter">${['A','B','C','D'][i]}</span><span>${opt}</span>
     </div>`).join('');
-  document.getElementById('btnPrev').disabled = currentQ === 0;
-  document.getElementById('btnNext').textContent = currentQ === currentExam.questions.length - 1 ? 'Last' : 'Next →';
-  document.querySelectorAll('.q-nav-btn').forEach((b,i) => {
-    b.classList.toggle('current', i === currentQ);
-    b.classList.toggle('answered', answers[i] !== null && i !== currentQ);
+  document.getElementById('btnPrev').disabled = currentQ===0;
+  document.getElementById('btnNext').textContent = currentQ===currentExam.questions.length-1?'Last':'Next →';
+  document.querySelectorAll('.q-nav-btn').forEach((b,i)=>{
+    b.classList.toggle('current',i===currentQ);
+    b.classList.toggle('answered',answers[i]!==null&&i!==currentQ);
   });
 }
-
-function selectAnswer(idx) {
-  answers[currentQ] = idx;
-  renderQuestion();
-}
-
-function nextQ() { if (currentQ < currentExam.questions.length - 1) { currentQ++; renderQuestion(); } }
-function prevQ() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
-function jumpQ(i) { currentQ = i; renderQuestion(); }
-
+function selectAnswer(idx) { answers[currentQ]=idx; renderQuestion(); }
+function nextQ() { if (currentQ<currentExam.questions.length-1) { currentQ++; renderQuestion(); } }
+function prevQ() { if (currentQ>0) { currentQ--; renderQuestion(); } }
+function jumpQ(i) { currentQ=i; renderQuestion(); }
 function startTimer() {
-  clearInterval(timerInterval);
-  updateTimerDisplay();
-  timerInterval = setInterval(() => {
-    secondsLeft--;
-    updateTimerDisplay();
-    if (secondsLeft <= 0) { clearInterval(timerInterval); submitExam(); }
-  }, 1000);
+  clearInterval(timerInterval); updateTimerDisplay();
+  timerInterval = setInterval(()=>{ secondsLeft--; updateTimerDisplay(); if(secondsLeft<=0){clearInterval(timerInterval);submitExam();} },1000);
 }
-
 function updateTimerDisplay() {
-  const m = Math.floor(secondsLeft / 60).toString().padStart(2,'0');
-  const s = (secondsLeft % 60).toString().padStart(2,'0');
-  document.getElementById('examTimerDisplay').textContent = `${m}:${s}`;
-  const box = document.getElementById('examTimerBox');
-  box.classList.toggle('warn', secondsLeft <= 300 && secondsLeft > 60);
-  box.classList.toggle('danger', secondsLeft <= 60);
+  const m=Math.floor(secondsLeft/60).toString().padStart(2,'0'), s=(secondsLeft%60).toString().padStart(2,'0');
+  document.getElementById('examTimerDisplay').textContent=`${m}:${s}`;
+  const box=document.getElementById('examTimerBox');
+  box.classList.toggle('warn',secondsLeft<=300&&secondsLeft>60);
+  box.classList.toggle('danger',secondsLeft<=60);
 }
-
 function confirmSubmit() {
-  const answered = answers.filter(a => a !== null).length;
-  document.getElementById('submitWarning').textContent =
-    `You have answered ${answered} of ${currentExam.questions.length} questions. Are you sure you want to submit?`;
+  const answered=answers.filter(a=>a!==null).length;
+  document.getElementById('submitWarning').textContent=`You have answered ${answered} of ${currentExam.questions.length} questions. Are you sure you want to submit?`;
   document.getElementById('submitModal').classList.remove('hidden');
 }
-
 function submitExam() {
-  clearInterval(timerInterval);
-  closeModal('submitModal');
-  let correct = 0;
-  currentExam.questions.forEach((q, i) => { if (answers[i] === q.answer) correct++; });
-  const total = currentExam.questions.length;
-  const pct = Math.round((correct / total) * 100);
-  const email = Object.keys(USERS).find(k => USERS[k] === currentUser);
-  const result = {
-    email, examTitle: currentExam.title, correct, wrong: total - correct, total,
-    pct, passMark: currentExam.passMark, date: new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})
-  };
-  results.push(result);
-  showResult(result);
+  clearInterval(timerInterval); closeModal('submitModal');
+  let correct=0; currentExam.questions.forEach((q,i)=>{ if(answers[i]===q.answer) correct++; });
+  const total=currentExam.questions.length, pct=Math.round((correct/total)*100);
+  const r={ email:currentUserEmail, name:currentUser.name, examTitle:currentExam.title, correct, wrong:total-correct, total, pct, passMark:currentExam.passMark, date:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}) };
+  results.push(r); showResult(r);
 }
-
 function showResult(r) {
-  const circumference = 314;
-  const offset = circumference - (circumference * r.pct / 100);
-  const passed = r.pct >= r.passMark;
-  document.getElementById('scoreCircle').style.strokeDashoffset = offset;
-  document.getElementById('scoreCircle').style.stroke = passed ? '#16A34A' : '#DC2626';
-  document.getElementById('scorePct').textContent = r.pct + '%';
-  document.getElementById('resultTitle').textContent = passed ? 'Congratulations!' : 'Keep Practising';
-  document.getElementById('resultMeta').textContent = passed
-    ? `You passed ${r.examTitle} with ${r.pct}%.`
-    : `You scored ${r.pct}% on ${r.examTitle}. The pass mark is ${r.passMark}%.`;
-  document.getElementById('rCorrect').textContent = r.correct;
-  document.getElementById('rWrong').textContent = r.wrong;
-  document.getElementById('rTotal').textContent = r.total;
+  const passed=r.pct>=r.passMark;
+  document.getElementById('scoreCircle').style.strokeDashoffset=314-(314*r.pct/100);
+  document.getElementById('scoreCircle').style.stroke=passed?'#22c55e':'#ef4444';
+  document.getElementById('scorePct').textContent=r.pct+'%';
+  document.getElementById('resultTitle').textContent=passed?'Congratulations!':'Keep Practising';
+  document.getElementById('resultMeta').textContent=passed?`You passed ${r.examTitle} with ${r.pct}%.`:`You scored ${r.pct}% on ${r.examTitle}. Pass mark: ${r.passMark}%.`;
+  document.getElementById('rCorrect').textContent=r.correct;
+  document.getElementById('rWrong').textContent=r.wrong;
+  document.getElementById('rTotal').textContent=r.total;
   goTo('examResult');
 }
 
-// ═══ ADMIN ═══
-function updateAdminStats() {
-  document.getElementById('statExams').textContent = exams.filter(e => e.status === 'active').length;
-  document.getElementById('statSubs').textContent = results.length;
-  const avg = results.length ? Math.round(results.reduce((s,r) => s + r.pct, 0) / results.length) + '%' : '—';
-  document.getElementById('statAvg').textContent = avg;
-}
-
-function renderExamsTable() {
-  const tbody = document.getElementById('examsTable');
-  tbody.innerHTML = exams.map(e => `
-    <tr>
-      <td style="font-weight:500;">${e.title}</td>
-      <td>${e.subject}</td>
-      <td>${e.questions.length}</td>
-      <td>${e.duration} min</td>
-      <td><span class="status-pill ${e.status==='active'?'pill-active':e.status==='draft'?'pill-draft':'pill-expired'}">${e.status}</span></td>
-      <td>
-        <div style="display:flex;gap:6px;">
-          <button class="btn btn-outline btn-sm" onclick="editExam(${e.id})">Edit</button>
-          <button class="btn btn-sm" style="background:var(--danger-soft);color:var(--danger);border:none;" onclick="deleteExam(${e.id})">Delete</button>
-        </div>
-      </td>
-    </tr>`).join('');
-}
-
-function filterExams(val) {
-  const rows = document.querySelectorAll('#examsTable tr');
-  rows.forEach(r => r.style.display = r.textContent.toLowerCase().includes(val.toLowerCase()) ? '' : 'none');
-}
-
-function renderAllResults() {
-  const tbody = document.getElementById('allResultsTable');
-  if (!results.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-mid);padding:2rem;">No submissions yet.</td></tr>'; return; }
-  const grade = pct => pct >= 70 ? 'A' : pct >= 60 ? 'B' : pct >= 50 ? 'C' : 'F';
-  tbody.innerHTML = results.map(r => `
-    <tr>
-      <td style="font-weight:500;">${r.email}</td>
-      <td>${r.examTitle}</td>
-      <td>${r.correct}/${r.total} (${r.pct}%)</td>
-      <td><span class="tag ${r.pct>=r.passMark?'badge-green':'badge-red'}">${grade(r.pct)}</span></td>
-      <td style="color:var(--text-mid);">${r.date}</td>
-    </tr>`).join('');
-}
-
-// ═══ EXAM CRUD ═══
-function openCreateExam() {
-  editingExamId = null;
-  document.getElementById('examModalTitle').textContent = 'Create New Exam';
-  document.getElementById('examTitle').value = '';
-  document.getElementById('examSubject').value = '';
-  document.getElementById('examDuration').value = 30;
-  document.getElementById('examPassMark').value = 50;
-  document.getElementById('examStatus').value = 'draft';
-  document.getElementById('questionsList').innerHTML = '';
-  addQuestion();
-  document.getElementById('examModal').classList.remove('hidden');
-}
-
-function editExam(id) {
-  const exam = exams.find(e => e.id === id);
-  editingExamId = id;
-  document.getElementById('examModalTitle').textContent = 'Edit Exam';
-  document.getElementById('examTitle').value = exam.title;
-  document.getElementById('examSubject').value = exam.subject;
-  document.getElementById('examDuration').value = exam.duration;
-  document.getElementById('examPassMark').value = exam.passMark;
-  document.getElementById('examStatus').value = exam.status;
-  document.getElementById('questionsList').innerHTML = '';
-  exam.questions.forEach((q, qi) => addQuestion(q, qi));
-  document.getElementById('examModal').classList.remove('hidden');
-}
-
-function deleteExam(id) {
-  if (!confirm('Delete this exam? This cannot be undone.')) return;
-  exams = exams.filter(e => e.id !== id);
-  renderExamsTable();
+// ══ ADMIN ══
+function renderAdminDash() {
+  const isTeacher=currentRole==='teacher';
+  document.getElementById('adminSidebarLabel').textContent=isTeacher?'Teacher':'Admin';
+  document.getElementById('adminWelcomeTitle').textContent=isTeacher?'Teacher Dashboard':'Admin Overview';
+  document.getElementById('si-aUsers').style.display=isTeacher?'none':'';
   updateAdminStats();
 }
+function updateAdminStats() {
+  document.getElementById('statExams').textContent=exams.filter(e=>e.status==='active').length;
+  document.getElementById('statStudents').textContent=Object.values(USERS).filter(u=>u.role==='student').length;
+  document.getElementById('statTeachers').textContent=Object.values(USERS).filter(u=>u.role==='teacher').length;
+  document.getElementById('statSubs').textContent=results.length;
+  document.getElementById('statAvg').textContent=results.length?Math.round(results.reduce((s,r)=>s+r.pct,0)/results.length)+'%':'—';
+}
 
-let qCount = 0;
-function addQuestion(existing, idx) {
+// ══ EXAMS CRUD ══
+function renderExamsTable() {
+  document.getElementById('examsTable').innerHTML=exams.map(e=>`
+    <tr>
+      <td style="font-weight:500;">${e.title}</td><td>${e.subject}</td><td>${e.questions.length}</td><td>${e.duration} min</td>
+      <td><span class="status-pill ${e.status==='active'?'pill-active':e.status==='draft'?'pill-draft':'pill-expired'}">${e.status}</span></td>
+      <td><div style="display:flex;gap:6px;">
+        <button class="btn btn-outline btn-sm" onclick="editExam(${e.id})">Edit</button>
+        <button class="btn btn-sm" style="background:var(--danger-soft);color:var(--danger);border:none;" onclick="confirmDelete('exam',${e.id})">Delete</button>
+      </div></td>
+    </tr>`).join('');
+}
+function openCreateExam() {
+  editingExamId=null;
+  document.getElementById('examModalTitle').textContent='Create New Exam';
+  ['examTitle','examSubject'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('examDuration').value=30; document.getElementById('examPassMark').value=50;
+  document.getElementById('examStatus').value='draft'; document.getElementById('questionsList').innerHTML='';
+  qCount=0; addQuestion(); document.getElementById('examModal').classList.remove('hidden');
+}
+function editExam(id) {
+  const exam=exams.find(e=>e.id===id); editingExamId=id;
+  document.getElementById('examModalTitle').textContent='Edit Exam';
+  document.getElementById('examTitle').value=exam.title; document.getElementById('examSubject').value=exam.subject;
+  document.getElementById('examDuration').value=exam.duration; document.getElementById('examPassMark').value=exam.passMark;
+  document.getElementById('examStatus').value=exam.status; document.getElementById('questionsList').innerHTML='';
+  qCount=0; exam.questions.forEach((q,qi)=>addQuestion(q,qi));
+  document.getElementById('examModal').classList.remove('hidden');
+}
+function addQuestion(existing,idx) {
   qCount++;
-  const letters = ['A','B','C','D'];
-  const opts = existing ? existing.options : ['','','',''];
-  const ans  = existing ? existing.answer : 0;
-  const text = existing ? existing.text : '';
-  const qi   = idx !== undefined ? idx : document.getElementById('questionsList').children.length;
-  const html = `
-    <div class="question-block" id="qblock-${qCount}" data-qi="${qi}">
+  const opts=existing?existing.options:['','','',''], ans=existing?existing.answer:0, text=existing?existing.text:'';
+  const qi=idx!==undefined?idx:document.getElementById('questionsList').children.length;
+  document.getElementById('questionsList').insertAdjacentHTML('beforeend',`
+    <div class="question-block" id="qb-${qCount}">
       <div class="question-block-head">
-        <span style="font-size:13px;font-weight:600;color:var(--navy);">Q${qi+1}</span>
+        <span style="font-size:13px;font-weight:600;color:var(--accent);">Q${qi+1}</span>
         <button class="btn btn-sm" style="background:var(--danger-soft);color:var(--danger);border:none;font-size:12px;" onclick="removeQuestion(this)">Remove</button>
       </div>
       <div class="form-group" style="margin-bottom:10px;">
-        <input type="text" placeholder="Enter question text" value="${text}" class="q-text-input" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:14px;outline:none;" />
+        <input type="text" placeholder="Enter question text" value="${text}" class="q-text-input" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--font-body);font-size:14px;outline:none;background:#020617;color:var(--text);" />
       </div>
-      <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:8px;">Options <span style="font-weight:400;">(select correct answer)</span></p>
+      <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:8px;">Options <span style="font-weight:400;">(select the correct answer)</span></p>
       <div class="options-list">
-        ${opts.map((opt, i) => `
-          <div class="option-row">
-            <input type="radio" name="ans-${qCount}" value="${i}" ${ans===i?'checked':''} />
-            <span class="option-label" style="width:18px;font-weight:600;">${letters[i]}</span>
-            <input type="text" placeholder="Option ${letters[i]}" value="${opt}" class="opt-input-${i}" />
-          </div>`).join('')}
+        ${opts.map((o,i)=>`<div class="option-row"><input type="radio" name="ans-${qCount}" value="${i}" ${ans===i?'checked':''}/>
+        <span style="font-size:13px;color:var(--text-mid);font-weight:600;width:18px;">${['A','B','C','D'][i]}</span>
+        <input type="text" placeholder="Option ${['A','B','C','D'][i]}" value="${o}" /></div>`).join('')}
       </div>
-    </div>`;
-  document.getElementById('questionsList').insertAdjacentHTML('beforeend', html);
+    </div>`);
 }
-
-function removeQuestion(btn) {
-  btn.closest('.question-block').remove();
-  renumberQuestions();
-}
-
-function renumberQuestions() {
-  document.querySelectorAll('.question-block').forEach((b, i) => {
-    b.querySelector('span').textContent = `Q${i+1}`;
-    b.dataset.qi = i;
-  });
-}
-
+function removeQuestion(btn) { btn.closest('.question-block').remove(); renumberQuestions(); }
+function renumberQuestions() { document.querySelectorAll('.question-block').forEach((b,i)=>{ b.querySelector('span').textContent=`Q${i+1}`; }); }
 function saveExam() {
-  const title    = document.getElementById('examTitle').value.trim();
-  const subject  = document.getElementById('examSubject').value.trim();
-  const duration = parseInt(document.getElementById('examDuration').value);
-  const passMark = parseInt(document.getElementById('examPassMark').value);
-  const status   = document.getElementById('examStatus').value;
-  if (!title || !subject) { alert('Please fill in the exam title and subject.'); return; }
-  const blocks = document.querySelectorAll('.question-block');
-  if (!blocks.length) { alert('Please add at least one question.'); return; }
-  const questions = [];
-  let valid = true;
-  blocks.forEach((block, bi) => {
-    const text = block.querySelector('.q-text-input').value.trim();
-    const inputs = block.querySelectorAll('.option-row input[type="text"]');
-    const opts   = Array.from(inputs).map(i => i.value.trim());
-    const radios = block.querySelectorAll('input[type="radio"]');
-    let answer   = 0;
-    radios.forEach((r, ri) => { if (r.checked) answer = ri; });
-    if (!text || opts.some(o => !o)) { alert(`Question ${bi+1}: fill in the question and all 4 options.`); valid = false; }
-    questions.push({ text, options: opts, answer });
+  const title=document.getElementById('examTitle').value.trim(), subject=document.getElementById('examSubject').value.trim();
+  const duration=parseInt(document.getElementById('examDuration').value), passMark=parseInt(document.getElementById('examPassMark').value);
+  const status=document.getElementById('examStatus').value;
+  if (!title||!subject) { alert('Please fill in the exam title and subject.'); return; }
+  const blocks=document.querySelectorAll('.question-block'); if (!blocks.length) { alert('Add at least one question.'); return; }
+  const questions=[]; let valid=true;
+  blocks.forEach((b,bi)=>{
+    const text=b.querySelector('.q-text-input').value.trim();
+    const opts=Array.from(b.querySelectorAll('.option-row input[type="text"]')).map(i=>i.value.trim());
+    let answer=0; b.querySelectorAll('input[type="radio"]').forEach((r,ri)=>{ if(r.checked) answer=ri; });
+    if (!text||opts.some(o=>!o)) { alert(`Question ${bi+1}: fill in the question and all 4 options.`); valid=false; }
+    questions.push({ text,options:opts,answer });
   });
   if (!valid) return;
-  if (editingExamId) {
-    const exam = exams.find(e => e.id === editingExamId);
-    Object.assign(exam, { title, subject, duration, passMark, status, questions });
-  } else {
-    exams.push({ id: nextExamId++, title, subject, duration, passMark, status, questions });
-  }
-  closeModal('examModal');
-  renderExamsTable();
-  updateAdminStats();
-  if (currentRole === 'student') renderStudentDash();
+  if (editingExamId) Object.assign(exams.find(e=>e.id===editingExamId),{title,subject,duration,passMark,status,questions});
+  else exams.push({ id:nextExamId++,title,subject,duration,passMark,status,questions });
+  closeModal('examModal'); renderExamsTable(); updateAdminStats();
 }
 
+// ══ USER MANAGEMENT ══
+function switchUserTab(tab) {
+  currentUserTab=tab;
+  document.getElementById('studentsPanel').style.display=tab==='students'?'block':'none';
+  document.getElementById('teachersPanel').style.display=tab==='teachers'?'block':'none';
+  document.getElementById('utab-students').classList.toggle('active',tab==='students');
+  document.getElementById('utab-teachers').classList.toggle('active',tab==='teachers');
+  updateUserActionBtns();
+}
+function updateUserActionBtns() {
+  const el=document.getElementById('userActionBtns');
+  if (currentRole!=='admin') { el.innerHTML=''; return; }
+  el.innerHTML=currentUserTab==='students'
+    ?'<button class="btn btn-primary btn-sm" onclick="openAddStudent()">+ Add Student</button>'
+    :'<button class="btn btn-primary btn-sm" onclick="openAddTeacher()">+ Add Teacher</button>';
+}
+function renderStudentsTable() {
+  const rows=Object.entries(USERS).filter(([,u])=>u.role==='student');
+  const canEdit=currentRole==='admin';
+  document.getElementById('studentsTable').innerHTML=rows.length?rows.map(([email,u])=>{
+    const ini=u.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    return `<tr>
+      <td><div class="flex-row"><div class="avatar av-blue">${ini}</div><span style="font-weight:500;">${u.name}</span></div></td>
+      <td style="color:var(--text-mid);">${email}</td><td>${u.programme||'—'}</td>
+      <td style="color:var(--text-mid);font-size:13px;">${u.studentId||'—'}</td>
+      <td><span class="status-pill ${u.status==='active'?'pill-active':'pill-inactive'}">${u.status}</span></td>
+      <td>${canEdit?`<div style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="openEditStudent('${email}')">Edit</button><button class="btn btn-sm" style="background:var(--danger-soft);color:var(--danger);border:none;" onclick="confirmDelete('student','${email}')">Delete</button></div>`:'<span style="color:var(--text-mid);font-size:13px;">—</span>'}</td>
+    </tr>`;}).join(''):'<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-mid);">No students yet.</td></tr>';
+}
+function renderTeachersTable() {
+  const rows=Object.entries(USERS).filter(([,u])=>u.role==='teacher');
+  const canEdit=currentRole==='admin';
+  document.getElementById('teachersTable').innerHTML=rows.length?rows.map(([email,u])=>{
+    const ini=u.name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2);
+    return `<tr>
+      <td><div class="flex-row"><div class="avatar av-purple">${ini}</div><span style="font-weight:500;">${u.name}</span></div></td>
+      <td style="color:var(--text-mid);">${email}</td><td>${u.subject||'—'}</td>
+      <td><span class="status-pill ${u.status==='active'?'pill-active':'pill-inactive'}">${u.status}</span></td>
+      <td>${canEdit?`<div style="display:flex;gap:6px;"><button class="btn btn-outline btn-sm" onclick="openEditTeacher('${email}')">Edit</button><button class="btn btn-sm" style="background:var(--danger-soft);color:var(--danger);border:none;" onclick="confirmDelete('teacher','${email}')">Delete</button></div>`:'<span style="color:var(--text-mid);font-size:13px;">—</span>'}</td>
+    </tr>`;}).join(''):'<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-mid);">No teachers yet.</td></tr>';
+}
+
+// ── Student modal ──
+function openAddStudent() {
+  editingUserEmail=null;
+  document.getElementById('studentModalTitle').textContent='Add New Student';
+  document.getElementById('studentModalAlert').innerHTML='';
+  document.getElementById('sEmail').disabled=false;
+  ['sName','sEmail','sPassword','sProgramme'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sStatus').value='active';
+  document.getElementById('studentModal').classList.remove('hidden');
+}
+function openEditStudent(email) {
+  editingUserEmail=email; const u=USERS[email];
+  document.getElementById('studentModalTitle').textContent='Edit Student';
+  document.getElementById('studentModalAlert').innerHTML='';
+  document.getElementById('sName').value=u.name; document.getElementById('sEmail').value=email; document.getElementById('sEmail').disabled=true;
+  document.getElementById('sPassword').value=u.password; document.getElementById('sProgramme').value=u.programme||''; document.getElementById('sStatus').value=u.status||'active';
+  document.getElementById('studentModal').classList.remove('hidden');
+}
+function saveStudent() {
+  const name=document.getElementById('sName').value.trim(), email=document.getElementById('sEmail').value.trim().toLowerCase();
+  const password=document.getElementById('sPassword').value, programme=document.getElementById('sProgramme').value.trim();
+  const status=document.getElementById('sStatus').value, al=document.getElementById('studentModalAlert');
+  if (!name||!email||!password) { al.innerHTML='<div class="alert alert-danger">Name, email, and password are required.</div>'; return; }
+  if (!editingUserEmail&&USERS[email]) { al.innerHTML='<div class="alert alert-danger">An account with this email already exists.</div>'; return; }
+  if (!email.includes('@')) { al.innerHTML='<div class="alert alert-danger">Please enter a valid email address.</div>'; return; }
+  if (editingUserEmail) {
+    USERS[editingUserEmail].name=name; USERS[editingUserEmail].password=password;
+    USERS[editingUserEmail].programme=programme; USERS[editingUserEmail].status=status;
+  } else {
+    const studentId=`WDI-${new Date().getFullYear()}-${String(nextStudentNum++).padStart(3,'0')}`;
+    USERS[email]={ password,role:'student',name,programme,status,studentId };
+  }
+  closeModal('studentModal'); renderStudentsTable(); updateAdminStats();
+}
+
+// ── Teacher modal ──
+function openAddTeacher() {
+  editingUserEmail=null;
+  document.getElementById('teacherModalTitle').textContent='Add New Teacher';
+  document.getElementById('teacherModalAlert').innerHTML='';
+  document.getElementById('tEmail').disabled=false;
+  ['tName','tEmail','tPassword','tSubject'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('tStatus').value='active';
+  document.getElementById('teacherModal').classList.remove('hidden');
+}
+function openEditTeacher(email) {
+  editingUserEmail=email; const u=USERS[email];
+  document.getElementById('teacherModalTitle').textContent='Edit Teacher';
+  document.getElementById('teacherModalAlert').innerHTML='';
+  document.getElementById('tName').value=u.name; document.getElementById('tEmail').value=email; document.getElementById('tEmail').disabled=true;
+  document.getElementById('tPassword').value=u.password; document.getElementById('tSubject').value=u.subject||''; document.getElementById('tStatus').value=u.status||'active';
+  document.getElementById('teacherModal').classList.remove('hidden');
+}
+function saveTeacher() {
+  const name=document.getElementById('tName').value.trim(), email=document.getElementById('tEmail').value.trim().toLowerCase();
+  const password=document.getElementById('tPassword').value, subject=document.getElementById('tSubject').value.trim();
+  const status=document.getElementById('tStatus').value, al=document.getElementById('teacherModalAlert');
+  if (!name||!email||!password) { al.innerHTML='<div class="alert alert-danger">Name, email, and password are required.</div>'; return; }
+  if (!editingUserEmail&&USERS[email]) { al.innerHTML='<div class="alert alert-danger">An account with this email already exists.</div>'; return; }
+  if (!email.includes('@')) { al.innerHTML='<div class="alert alert-danger">Please enter a valid email address.</div>'; return; }
+  if (editingUserEmail) { USERS[editingUserEmail].name=name; USERS[editingUserEmail].password=password; USERS[editingUserEmail].subject=subject; USERS[editingUserEmail].status=status; }
+  else USERS[email]={ password,role:'teacher',name,subject,status };
+  closeModal('teacherModal'); renderTeachersTable(); updateAdminStats();
+}
+
+// ── Delete ──
+function confirmDelete(type, id) {
+  const labels={ exam:'this exam', student:'this student account', teacher:'this teacher account' };
+  document.getElementById('deleteModalTitle').textContent=`Delete ${type.charAt(0).toUpperCase()+type.slice(1)}`;
+  document.getElementById('deleteModalMsg').textContent=`You are about to permanently delete ${labels[type]}. This action cannot be undone.`;
+  document.getElementById('deleteConfirmBtn').onclick=()=>{
+    if (type==='exam') { exams=exams.filter(e=>e.id!==id); renderExamsTable(); }
+    else { delete USERS[id]; type==='student'?renderStudentsTable():renderTeachersTable(); }
+    updateAdminStats(); closeModal('deleteModal');
+  };
+  document.getElementById('deleteModal').classList.remove('hidden');
+}
+
+// ══ RESULTS ══
+function renderAllResults() {
+  const tbody=document.getElementById('allResultsTable');
+  if (!results.length) { tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-mid);">No submissions yet.</td></tr>'; return; }
+  const grade=pct=>pct>=70?'A':pct>=60?'B':pct>=50?'C':'F';
+  tbody.innerHTML=results.map(r=>{
+    const passed=r.pct>=r.passMark;
+    return `<tr><td style="font-weight:500;">${r.name||r.email}</td><td>${r.examTitle}</td><td>${r.correct}/${r.total} (${r.pct}%)</td>
+      <td><span class="tag ${passed?'badge-green':'badge-red'}">${grade(r.pct)}</span></td>
+      <td><span class="status-pill ${passed?'pill-active':'pill-expired'}">${passed?'Passed':'Failed'}</span></td>
+      <td style="color:var(--text-mid);">${r.date}</td></tr>`;}).join('');
+}
+
+// ══ UTILS ══
+function filterTable(id,val) { document.querySelectorAll(`#${id} tr`).forEach(r=>r.style.display=r.textContent.toLowerCase().includes(val.toLowerCase())?'':'none'); }
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-// Close modals on overlay click
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', e => { if (e.target === el) el.classList.add('hidden'); });
-});
-
-function renderAdminDash() { updateAdminStats(); }
+document.querySelectorAll('.modal-overlay').forEach(el=>el.addEventListener('click',e=>{ if(e.target===el) el.classList.add('hidden'); }));
 </script>
 </body>
 </html>
