@@ -87,3 +87,59 @@ footer {
     padding: 20px;
     background: #020617;
 }
+/* Make nav responsive */
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 15px;
+}
+
+.navbar a {
+    padding: 8px 12px;
+    background: #222;
+    border-radius: 6px;
+    font-size: 14px;
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    h1, h2, h3 {
+        text-align: center;
+    }
+
+    section {
+        padding: 20px 10px;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero img {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Mobile grid fix */
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+}

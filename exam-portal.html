@@ -159,6 +159,63 @@
   .exam-list-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
   .eli-info h3 { font-weight: 600; font-size: 15px; color: var(--text); margin-bottom: 4px; }
   .eli-info p { font-size: 13px; color: var(--text-mid); }
+  /* ── HAMBURGER ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: all 0.2s; }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; }
+  .sidebar-overlay.open { display: block; }
+
+  /* ── MOBILE BREAKPOINT ── */
+  @media (max-width: 768px) {
+    .topbar { padding: 0 1rem; }
+    .topbar-brand { font-size: 13px; gap: 8px; }
+    .brand-text { display: none; }
+    .hamburger { display: flex; }
+    .topbar-nav .nav-btn:not(.danger) { display: none; }
+    .auth-wrap { padding: 1rem; align-items: flex-start; padding-top: 2rem; }
+    .auth-card { padding: 1.5rem; }
+    .dashboard { position: relative; }
+    .sidebar { position: fixed; left: -260px; top: 60px; bottom: 0; width: 240px; z-index: 50; transition: left 0.25s ease; overflow-y: auto; }
+    .sidebar.open { left: 0; }
+    .main-content { padding: 1.25rem; width: 100%; }
+    .page-title { font-size: 18px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .section-header .btn { width: 100%; justify-content: center; }
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-value { font-size: 22px; }
+    .table-card { overflow-x: auto; }
+    .table-card table { min-width: 520px; }
+    th, td { padding: 10px 12px; font-size: 13px; }
+    .table-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .search-input { width: 100%; }
+    .grid-2 { grid-template-columns: 1fr; gap: 0; }
+    .tab-row { width: 100%; }
+    .tab-btn { flex: 1; text-align: center; }
+    .exam-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 1rem; }
+    .exam-timer { width: 100%; justify-content: center; }
+    .exam-body { flex-direction: column; }
+    .question-nav { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; }
+    .q-nav-grid { grid-template-columns: repeat(8, 1fr); }
+    .question-main { padding: 1rem; }
+    .question-card { padding: 1.25rem; }
+    .q-text { font-size: 15px; }
+    .exam-list-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .exam-list-item .btn { width: 100%; }
+    .result-card { padding: 1.5rem; }
+    .rs-value { font-size: 16px; }
+    .modal { padding: 1.25rem; }
+    .modal-footer { flex-direction: column-reverse; }
+    .modal-footer .btn { width: 100%; justify-content: center; }
+    #userActionBtns .btn { width: 100%; justify-content: center; }
+  }
+
+  @media (max-width: 420px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .q-nav-grid { grid-template-columns: repeat(6, 1fr); }
+    .result-stats { grid-template-columns: 1fr; gap: 8px; }
+    .auth-card { padding: 1.25rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -166,13 +223,17 @@
 <div class="topbar">
   <div class="topbar-brand">
     <div class="topbar-logo">WD</div>
-    Wholphinplus Developers Institute
+    <span class="brand-text">Wholphinplus Developers Institute</span>
   </div>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <div class="topbar-nav" id="topNav">
     <button class="nav-btn">Login</button>
   </div>
 </div>
 
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <!-- LOGIN -->
 <div id="loginPage" class="page active">
   <div class="auth-wrap">
@@ -195,9 +256,9 @@
       <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
       <div style="margin-top:1.25rem;padding:12px 14px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);border-radius:var(--radius);font-size:12px;color:var(--text-mid);line-height:2;">
         <strong style="color:var(--accent);">Demo credentials</strong><br>
-        Student: student@wdi.com / pass123<br>
-        Teacher: teacher@wdi.com / teach123<br>
-        Admin: admin@wdi.com / admin123
+        Student: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9f989988898298ac9b8885c28f8381">[email&#160;protected]</a> / pass123<br>
+        Teacher: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9adbcb8bab1bcab99aebdb0f7bab6b4">[email&#160;protected]</a> / teach123<br>
+        Admin: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5637323b3f381621323f7835393b">[email&#160;protected]</a> / admin123
       </div>
     </div>
   </div>
@@ -446,18 +507,15 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══ DATA ══
 let USERS = {
   'student@wdi.com':  { password:'pass123',  role:'student',  name:'Demo Student',     programme:'Full Stack Development', status:'active',   studentId:'WDI-2024-001' },
-  'uduak@wdi.com':    { password:'uduak123', role:'student',  name:'Uduak Mendie',     programme:'Graphic Design',         status:'active',   studentId:'WDI-2024-003'},
-  'emma@wdi.com':    { password:'emma123', role:'student',  name:'Emmanuel Edet',     programme:'Python and Data Science', status:'active',   studentId:'WDI-2024-004'},
-  'esther@wdi.com':    { password:'esther123', role:'student',  name:'Esther Ekanem',     programme:'Web Development',        status:'active',   studentId:'WDI-2024-005'},
   'student2@wdi.com': { password:'pass123',  role:'student',  name:'Amaka Osei',       programme:'Python & Data Science',  status:'active',   studentId:'WDI-2024-002' },
   'teacher@wdi.com':  { password:'teach123', role:'teacher',  name:'Mr. John Adeyemi', subject:'Web Development',          status:'active' },
   'admin@wdi.com':    { password:'admin123', role:'admin',    name:'Administrator',                                         status:'active' }
 };
-let nextStudentNum = 5;
+let nextStudentNum = 3;
 let exams = [
   { id:1, title:'HTML & CSS Fundamentals', subject:'Web Development', duration:30, passMark:50, status:'active', questions:[
     { text:'What does HTML stand for?', options:['HyperText Markup Language','HighText Machine Language','HyperText Machine Language','HyperTool Markup Language'], answer:0 },
@@ -869,6 +927,24 @@ function renderAllResults() {
 function filterTable(id,val) { document.querySelectorAll(`#${id} tr`).forEach(r=>r.style.display=r.textContent.toLowerCase().includes(val.toLowerCase())?'':'none'); }
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 document.querySelectorAll('.modal-overlay').forEach(el=>el.addEventListener('click',e=>{ if(e.target===el) el.classList.add('hidden'); }));
+
+// ══ SIDEBAR MOBILE ══
+function toggleSidebar() {
+  const activePage = document.querySelector('.page.active');
+  const sb = activePage ? activePage.querySelector('.sidebar') : null;
+  const overlay = document.getElementById('sidebarOverlay');
+  if (!sb) return;
+  const isOpen = sb.classList.contains('open');
+  if (isOpen) { sb.classList.remove('open'); overlay.classList.remove('open'); }
+  else { sb.classList.add('open'); overlay.classList.add('open'); }
+}
+function closeSidebar() {
+  document.querySelectorAll('.sidebar').forEach(s => s.classList.remove('open'));
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('.sidebar-item') && window.innerWidth <= 768) closeSidebar();
+});
 </script>
 </body>
 </html>
